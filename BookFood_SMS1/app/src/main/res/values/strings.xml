@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">BookFood_SMS</string>
+    <string name="mon1">Bánh Mì Nướng Ca Dé (Kaya Toast).
+Bánh mì nướng đặc trưng với hương Ca Dé truyền thống và Ca dé lá dứa ngon nổi tiếng </string>
+    <string name="mon2">Mực Ống Đại Dương Lồng Chả Cá ặc trưng với hương Ca Dé truyền thống và Ca dé lá dứa ngon nổi tiếng
+
+</string>
+    <string name="mon3">Bánh mì bò ặc trưng với hương Ca Dé truyền thống và Ca dé lá dứa ngon nổi tiếng</string>
+    <string name="mon4">Cá Hồi Nauy
+        Với hàm lượng dinh dưỡng cao và hương vị thơm ngon riêng có,
+        Cá Hồi tại nhà hàng sẽ đem đến cho thực khách những trải nghiệm
+        vừa hiện đại vừa cổ điển.
+    </string>
+    <string name="mon5">Gà chiên xuxu  với hàm lượng dinh dưỡng cao và hương vị thơm ngon.tại nhà hàng sẽ đem đến cho thực khách những trải nghiệm
+        vừa hiện đại vừa cổ điển. </string>
+    <string name="mon6">Lẩu hải sản với hàm lượng dinh dưỡng cao và hương vị thơm ngon.tại nhà hàng sẽ đem đến cho thực khách những trải nghiệm
+        vừa hiện đại vừa cổ điển. </string>
+    <string name="mon7">Samara  với hàm lượng dinh dưỡng cao và hương vị thơm ngon.tại nhà hàng sẽ đem đến cho thực khách những trải nghiệm
+        vừa hiện đại vừa cổ điển. </string>
+    <string name="mon8">Sanxi Gà với hàm lượng dinh dưỡng cao và hương vị thơm ngon.tại nhà hàng sẽ đem đến cho thực khách những trải nghiệm
+        vừa hiện đại vừa cổ điển. </string>
+    <string name="mon9">Cơm cuộn Hàn Quốc  với hàm lượng dinh dưỡng cao và hương vị thơm ngon.tại nhà hàng sẽ đem đến cho thực khách những trải nghiệm
+        vừa hiện đại vừa cổ điển. </string>
+    <string name="mon10">Suha Samaco  với hàm lượng dinh dưỡng cao và hương vị thơm ngon.tại nhà hàng sẽ đem đến cho thực khách những trải nghiệm
+        vừa hiện đại vừa cổ điển. </string>
+
+</resources>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="@color/back_ground_bright"
+  android:orientation="vertical"
+  android:padding="10dp">
+
+  <ImageView
+    android:id="@+id/imgBack"
+    android:layout_width="50dp"
+    android:layout_height="50dp"
+    android:scaleType="fitXY"
+    android:src="@drawable/iconback" />
+
+  <TextView
+    android:id="@+id/txtorder"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+
+    android:layout_marginTop="30dp"
+    android:background="#B19A9A"
+    android:maxLines="50"
+    android:textSize="18sp"
+    android:textStyle="bold" />
+
+
+  <Button
+    android:id="@+id/btnGoiGuiSMS"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="20dp"
+    android:layout_marginTop="30dp"
+    android:background="#C09494"
+    android:gravity="center"
+    android:text="ĐẶT MÓN"
+    android:textSize="18sp" />
+</LinearLayout>

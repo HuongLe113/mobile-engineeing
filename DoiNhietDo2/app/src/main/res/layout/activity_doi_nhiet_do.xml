@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DoiNhietDoActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="143dp"
+        tools:layout_editor_absoluteY="16dp">
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Độ C:" />
+
+        <EditText
+            android:id="@+id/textc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+          android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Độ F:" />
+
+        <EditText
+            android:id="@+id/textf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+          android:gravity="center"/>
+
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:gravity="center"
+          android:orientation="vertical">
+
+            <Button
+              android:id="@+id/btnCtoF"
+              android:layout_width="334dp"
+              android:layout_height="wrap_content"
+              android:text="Đổi độ C sang độ F"
+              android:visibility="visible" />
+
+            <Button
+              android:id="@+id/btnFtoC"
+              android:layout_width="334dp"
+              android:layout_height="wrap_content"
+              android:text="Đổi độ F sang độ C" />
+
+            <Button
+              android:id="@+id/btnClear"
+              android:layout_width="334dp"
+              android:layout_height="wrap_content"
+              android:text="Clear" />
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

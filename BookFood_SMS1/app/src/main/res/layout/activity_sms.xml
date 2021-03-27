@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:background="@color/back_ground_bright"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".smsActivity">
+    <TextView
+        android:textSize="24sp"
+        android:text="Người nhận"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <EditText
+        android:textSize="24sp"
+        android:hint="Nhập số điện thoại"
+        android:id="@+id/edtNum"
+        android:inputType="number"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:layout_marginTop="20dp"
+        android:textSize="24sp"
+        android:text="Nội dung"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <EditText
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:singleLine="false"
+        android:maxLines="50"
+        android:layout_marginTop="20dp"
+
+        android:inputType="textMultiLine"
+        android:hint="Nhập nội dung tin nhắn"
+        android:id="@+id/edtContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+        <Button
+            android:layout_marginTop="20dp"
+            android:textSize="24sp"
+            android:text=" GỬI TIN NHẮN"
+            android:id="@+id/btnSend"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+</LinearLayout>
