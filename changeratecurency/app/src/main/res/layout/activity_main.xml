@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:gravity="center"
+  android:orientation="vertical"
+  >
+<Space
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:layout_weight="0.2"/>
+  <TableLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TableRow
+      android:id="@+id/rowFrom"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+
+      <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="16dp"
+        android:text="From"
+        android:textSize="20sp" />
+
+      <ImageView
+        android:id="@+id/imgFrom"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+         />
+
+      <AutoCompleteTextView
+        android:id="@+id/acFromCurrencyCode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:completionHint="Select a country"
+        android:completionThreshold="1"
+        android:hint="Select a country"
+        android:dropDownAnchor="@id/rowFrom"
+        android:popupTheme="@color/colorPrimary" />
+
+      <EditText
+        android:id="@+id/edtFrom"
+        android:layout_width="161dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:gravity="center"
+        android:text="1" />
+
+    </TableRow>
+
+    <TableRow
+      android:id="@+id/rowTo"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent" >
+
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="16dp"
+        android:textSize="20sp"
+        android:text="To" />
+
+      <ImageView
+        android:id="@+id/imgTo"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        />
+
+      <AutoCompleteTextView
+        android:id="@+id/acToCurrencyCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:completionHint="Select a country"
+        android:completionThreshold="1"
+        android:hint="Select a country"
+        android:dropDownAnchor="@id/rowTo"
+        android:popupTheme="@color/colorPrimary"
+        />
+
+      <TextView
+        android:id="@+id/txtTo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:text="0" />
+    </TableRow>
+
+  </TableLayout>
+
+  <Button
+    android:id="@+id/btnConvert"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Convert" />
+
+  <Space
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_weight="2" />
+
+</LinearLayout>

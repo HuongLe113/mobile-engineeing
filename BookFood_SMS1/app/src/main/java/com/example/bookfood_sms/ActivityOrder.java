@@ -7,11 +7,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,7 +52,7 @@ public class ActivityOrder extends AppCompatActivity {
             public void onClick(View v)
             {
                 new AlertDialog.Builder(ActivityOrder.this)
-                        .setTitle("Exit")
+                        .setTitle("Chốt đơn")
                         .setMessage("Bạn chắc chắn muốn  đặt món")
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override

@@ -38,7 +38,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:background="#EDE1E1"
+        android:background="@color/back_ground_bright"
         android:gravity="center"
         android:text="Bánh Mì Nướng Ca Dé (Kaya Toast)"
         android:textColor="#B05133"
@@ -81,7 +81,8 @@
     <TextView
       android:id="@+id/txtDetailWebsite"
       android:layout_width="match_parent"
-      android:layout_height="match_parent" />
+      android:layout_height="match_parent"
+      android:gravity="center"/>
   </LinearLayout>
 
   <WebView

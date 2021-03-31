@@ -2,29 +2,20 @@ package com.example.bookfood_sms;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
-
-import java.util.List;
 
 public class ActivityMon1 extends AppCompatActivity {
     ImageView iconback;
     ImageView imgFood;
     TextView txtFoodName;
     TextView txtFoodPrice;
-    TextView txtFoodDescription;
     ImageView btnLocation;
     TextView txtWebsite;
     WebView webView;
@@ -56,11 +47,8 @@ public class ActivityMon1 extends AppCompatActivity {
         btnLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("tiktzuki", "showView: "+"clicked");
                 Intent mapIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(item.getFoodLocation()) );
                 mapIntent.setPackage("com.google.android.apps.maps");
-//                Intent choserIntent = Intent.createChooser(mapIntent, "chọn app để goi");
-//                if (mapIntent.resolveActivity(getPackageManager()) != null)
                     startActivity(mapIntent);
             }
         });
@@ -70,7 +58,6 @@ public class ActivityMon1 extends AppCompatActivity {
         {
             @Override
             public void onClick(View v) {
-                Log.d("tiktzuki", "onClick: "+"clicked back");
                 Intent intent = new Intent(ActivityMon1.this,MainActivity.class);
                 startActivity(intent);
             }

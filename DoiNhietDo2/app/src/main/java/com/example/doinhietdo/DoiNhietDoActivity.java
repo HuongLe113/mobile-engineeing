@@ -25,6 +25,10 @@ public class DoiNhietDoActivity extends AppCompatActivity {
         btnCtoF.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(!isDigit(textc.getText().toString())){
+                    Toast.makeText(getApplicationContext(), "Input Phải là số!!!", Toast.LENGTH_LONG).show();
+                    return;
+                }
                 try {
                     double c = Double.parseDouble(textc.getText().toString());
                     Convert convert = new Convert();
@@ -35,7 +39,7 @@ public class DoiNhietDoActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
                     Log.e("CONVERT", e.getMessage());
-                    textf.setText(e.getMessage());
+                    textf.setText("0");
                 }
 
             }
@@ -44,6 +48,10 @@ public class DoiNhietDoActivity extends AppCompatActivity {
         btnFtoC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(!isDigit(textf.getText().toString())){
+                    Toast.makeText(getApplicationContext(), "Input Phải là số!!!", Toast.LENGTH_LONG).show();
+                    return;
+                }
                 double f = 0.0;
                 try {
                     f = Double.parseDouble(textf.getText().toString());
@@ -54,7 +62,7 @@ public class DoiNhietDoActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
                     Log.e("CONVERT", e.getMessage());
-                    textc.setText(e.getMessage());
+                    textc.setText("0");
                 }
 
             }
@@ -68,6 +76,12 @@ public class DoiNhietDoActivity extends AppCompatActivity {
             }
         });
 
+    }
 
+    private boolean isDigit(String stringNumber){
+        String regex = "-?[0-9]\\d*|0";
+        if(!stringNumber.matches(regex))
+            return false;
+        return true;
     }
 }
