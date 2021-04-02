@@ -1,11 +1,7 @@
 package course.labs.changeratecurrentcy;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -18,6 +14,8 @@ import com.google.gson.GsonBuilder;
 import java.io.IOException;
 import java.util.List;
 
+import course.labs.changeratecurrentcy.model.Country;
+import course.labs.changeratecurrentcy.model.CountryInfo;
 import course.labs.changeratecurrentcy.repository.CountryApi;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -34,7 +32,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ListCountryActivity extends AppCompatActivity {
   CountryApi countryApi;
 
-  Button btnLoad;
 
   ListView countryListView;
   List<Country> items;
@@ -47,25 +44,14 @@ public class ListCountryActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_list_country);
   countryListView = findViewById(R.id.list_view_country);
-    btnLoad = findViewById(R.id.loadCountry);
-    btnLoad.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        loadCountry();
-      }
-    });
-
     createCountryApi();
-//    adapter = new CountryListItemAdapter(this, R.layout.list_item_country, items);
-//    countryListView = findViewById(R.id.list_view_country);
-//    countryListView.setAdapter(adapter);
+    loadAllCountry();
   }
 
 
   private void createCountryApi(){
     Gson gson = new GsonBuilder()
         .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
-//        .registerTypeAdapter(Country.class, new CountryDeserializer())
         .create();
     OkHttpClient okHttpClient = new OkHttpClient.Builder()
         .addInterceptor(new Interceptor() {
@@ -80,7 +66,6 @@ public class ListCountryActivity extends AppCompatActivity {
 
     Retrofit retrofit = new Retrofit.Builder()
         .baseUrl(CountryApi.ENDPOINT)
-//        .client(okHttpClient)
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .addConverterFactory(GsonConverterFactory.create(gson))
         .build();
@@ -88,11 +73,12 @@ public class ListCountryActivity extends AppCompatActivity {
     countryApi = retrofit.create(CountryApi.class);
   }
 
-  private void loadCountry(){
-    compositeDisposable.add(countryApi.getCountry("USA")
+  private void loadAllCountry(){
+    compositeDisposable.add(countryApi.getAllCountries()
     .subscribeOn(Schedulers.io())
     .observeOn(AndroidSchedulers.mainThread())
     .subscribeWith(getCountryObserver()));
+
   }
 
   DisposableSingleObserver<CountryInfo> getCountryObserver(){
@@ -106,6 +92,7 @@ public class ListCountryActivity extends AppCompatActivity {
               ListCountryActivity.this,
               R.layout.list_item_country,
               items);
+
           countryListView.setAdapter(adapter);
           countryListView.setEnabled(true);
         }

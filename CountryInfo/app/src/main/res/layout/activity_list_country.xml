@@ -7,12 +7,7 @@
   android:orientation="vertical"
   tools:context=".ListCountryActivity">
 
-  <Button
-    android:id="@+id/loadCountry"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="load" />
-<ListView
+  <ListView
   android:id="@+id/list_view_country"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"/>

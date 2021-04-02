@@ -1,9 +1,8 @@
-package course.labs.changeratecurrentcy;
+package course.labs.changeratecurrentcy.model;
 
 import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class Country {

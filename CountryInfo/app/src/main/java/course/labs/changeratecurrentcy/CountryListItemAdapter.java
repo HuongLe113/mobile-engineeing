@@ -3,7 +3,6 @@ package course.labs.changeratecurrentcy;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,6 +19,8 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
+
+import course.labs.changeratecurrentcy.model.Country;
 
 public class CountryListItemAdapter extends ArrayAdapter<Country> {
   Context context;
