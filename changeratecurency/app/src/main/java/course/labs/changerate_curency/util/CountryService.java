@@ -26,9 +26,6 @@ import course.labs.changerate_curency.MainActivity;
 import course.labs.changerate_curency.model.Country;
 
 public class CountryService {
-
-  static FileReader reader;
-
   public static List<Country> getCountriesList(Context context){
     List<Country> countries = new ArrayList<>();
 
@@ -49,7 +46,7 @@ public class CountryService {
             countryObj.get("code").getAsString(),
             countryObj.get("currencyCode").getAsString(),
             countryObj.get("name").getAsString(),
-            "https://www.countryflags.io/" +countryObj.get("code").getAsString() + "/flat/64.png"
+            "https://flagcdn.com/w160/"+countryObj.get("code").getAsString().toLowerCase()+".png"
         ));
       }
     } catch (IOException e) {

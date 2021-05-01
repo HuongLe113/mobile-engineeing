@@ -1,5 +1,6 @@
 package course.labs.changerate_curency.repository;
 
+import android.os.AsyncTask;
 import android.util.Log;
 
 import java.util.List;
@@ -12,6 +13,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
+import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -34,14 +36,11 @@ public class CurrencyRepository {
     this.api = retrofit.create(CurrencyApi.class);
   }
 
-  public Single<CurrencyFeed> getCurrencyFeed(String from){
+  public Call<CurrencyFeed> getCurrencyFeed(String from){
     return api.getFeed(from);
   }
 
-  public Single<CurrencyFeed> getCurrencyFeedFromCode(String code){
+  public Call<CurrencyFeed> getCurrencyFeedFromCode(String code){
     return api.getFeed("https://"+code.toLowerCase()+".fxexchangerate.com/rss.xml");
   }
-
-
-
 }

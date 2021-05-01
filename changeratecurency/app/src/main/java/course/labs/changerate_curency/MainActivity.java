@@ -2,10 +2,8 @@ package course.labs.changerate_curency;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.os.StrictMode;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,12 +11,11 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
-import java.io.IOException;
 import java.math.BigDecimal;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 import course.labs.changerate_curency.model.Country;
@@ -27,6 +24,10 @@ import course.labs.changerate_curency.model.CurrencyFeed;
 import course.labs.changerate_curency.repository.CurrencyApi;
 import course.labs.changerate_curency.repository.CurrencyRepository;
 import course.labs.changerate_curency.util.CountryService;
+import course.labs.changerate_curency.util.HistoryService;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
   CurrencyRepository currencyRepository = new CurrencyRepository();
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
   CurrencyFeed feed;
   AutoCompleteTextView acFromCurrencyCode;
   ImageView imgFrom;
-  ArrayAdapter<Country> adapterFrom;
+  CountryAdapter adapterFrom;
   EditText edtFrom;
 
   AutoCompleteTextView acToCurrencyCode;
@@ -43,6 +44,10 @@ public class MainActivity extends AppCompatActivity {
   TextView txtTo;
 
   Button btnConvert;
+
+  Button btnClear;
+  ListView listViewHistory;
+  ArrayAdapter<List<Object[]>> adapterHistory;
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -65,8 +70,10 @@ public class MainActivity extends AppCompatActivity {
       public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         TextView txt = view.findViewById(R.id.txtCurrencyCode);
         acFromCurrencyCode.setText(txt.getText().toString());
-        ImageView imageView = (ImageView) view.findViewById(R.id.imgCountry);
-        imgFrom.setImageDrawable(imageView.getDrawable());
+//        ImageView imageView = (ImageView) view.findViewById(R.id.imgCountry);
+        imgFrom.setImageBitmap(null);
+        new DownloadImageTask(imgFrom).execute(adapterFrom.filteredItem.get(position).getFlagUrl());
+//        imgFrom.setImageDrawable(imageView.getDrawable());
       }
     });
 
@@ -92,29 +99,16 @@ public class MainActivity extends AppCompatActivity {
         );
       }
     });
-  }
-
-  private static void setImg(ImageView imgView ,String imgUrl){
-
-    int SDK_INT = android.os.Build.VERSION.SDK_INT;
-    if (SDK_INT > 8)
-    {
-      StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
-          .permitAll().build();
-      StrictMode.setThreadPolicy(policy);
-      try {
-        URL url = new URL(imgUrl);
-        HttpURLConnection conn = (HttpURLConnection)url.openConnection();
-        conn.setDoInput(true);
-        conn.connect();
-        BitmapFactory.Options options = new BitmapFactory.Options();
-
-        Bitmap bitmap = BitmapFactory.decodeStream(conn.getInputStream(), null, options);
-        imgView.setImageBitmap(bitmap);
-      } catch (IOException e) {
-        e.printStackTrace();
+    btnClear = findViewById(R.id.btnClear);
+    btnClear.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        clearHistory();
+        loadHistory();
       }
-    }
+    });
+    listViewHistory = findViewById(R.id.listViewHistory);
+    loadHistory();
   }
 
   private void convert(String from, String to, String value){
@@ -128,22 +122,61 @@ public class MainActivity extends AppCompatActivity {
       return;
     }
     loadCurrency(from,to,value);
+
   }
 
   public void loadCurrency(String currencyFromCode, String currencyToCode, String value){
-    currencyRepository.getCurrencyFeedFromCode(currencyFromCode).subscribe(feed->{
-      for(CurrencyExchangeItem item: feed.getCurrencyExchangeItems()){
-        String toCode;
-        toCode = item.getTitle().substring(item.getTitle().lastIndexOf("(")+1, item.getTitle().lastIndexOf(")")).trim();
-        if (toCode.equals(currencyToCode)){
-          String half = item.getDescription().substring(item.getDescription().indexOf("=")+1).trim();
-          half = half.substring(0, half.indexOf(" ")).trim();
-          BigDecimal unit = new BigDecimal(half);
-          BigDecimal currencyValue = new BigDecimal(value);
-          txtTo.setText( unit.multiply(currencyValue).toString() );
+    Call call = currencyRepository.getCurrencyFeedFromCode(currencyFromCode);
+    call.enqueue(new Callback<CurrencyFeed>(){
+
+      @Override
+      public void onResponse(Call<CurrencyFeed> call, Response<CurrencyFeed> response) {
+        feed = response.body();
+        Log.d("tiktzuki", "onResponse: "+feed);
+        for(CurrencyExchangeItem item: feed.getCurrencyExchangeItems()){
+          String toCode;
+          toCode = item.getTitle().substring(item.getTitle().lastIndexOf("(")+1, item.getTitle().lastIndexOf(")")).trim();
+          if (toCode.equals(currencyToCode)){
+            String half = item.getDescription().substring(item.getDescription().indexOf("=")+1).trim();
+            half = half.substring(0, half.indexOf(" ")).trim();
+            BigDecimal unit = new BigDecimal(half);
+            BigDecimal currencyValue = new BigDecimal(value);
+            txtTo.setText( unit.multiply(currencyValue).toString() );
+            // Set history
+            Object[] historyItem = new Object[]{
+                edtFrom.getText().toString(),
+                acFromCurrencyCode.getText().toString(),
+                txtTo.getText().toString(),
+                acToCurrencyCode.getText().toString(),
+            };
+            Log.d("tiktzuki", "onClick: "+historyItem[0]+"\t"+historyItem[2]);
+            addAndWriteHistory(historyItem);
+            loadHistory();
+          }
         }
       }
+
+      @Override
+      public void onFailure(Call<CurrencyFeed> call, Throwable t) {
+
+      }
     });
+  }
+
+  void loadHistory(){
+    List<Object[]> history = HistoryService.getHistoryList(this);
+    adapterHistory = new HistoryAdapter(this, R.layout.history_item, history);
+    listViewHistory.setAdapter(adapterHistory);
+  }
+
+  void addAndWriteHistory(Object[] historyItem){
+    List<Object[]> history = HistoryService.getHistoryList(this);
+    history.add(0, historyItem);
+    HistoryService.writeHistory(history, this);
+  }
+
+  void clearHistory(){
+    HistoryService.writeHistory(new ArrayList<>(),this);
   }
 
   private boolean isDigit(String digitString){
