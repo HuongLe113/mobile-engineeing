@@ -28,7 +28,6 @@ public class CurrencyRepository {
     retrofit = new Retrofit.Builder()
         .baseUrl(this.BASE_URL)
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-//        .client(new OkHttpClient())
         .client(httpClient.build())
         .addConverterFactory(
             SimpleXmlConverterFactory.create())

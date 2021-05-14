@@ -1,3 +1,9 @@
 <resources>
   <string name="app_name">Gallery</string>
+  <string name="intro">Hi</string>
+  <string name="website">...</string>
+  <string name="next">Chọn</string>
+  <string name="back">Bỏ qua</string>
+  <string name="selfie_daily">Selfie</string>
+  <string name="selfie_daily_content">It\'s time to show your life</string>
 </resources>

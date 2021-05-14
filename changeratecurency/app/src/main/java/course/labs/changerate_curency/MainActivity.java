@@ -3,7 +3,6 @@ package course.labs.changerate_curency;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,6 +15,7 @@ import android.widget.TextView;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import course.labs.changerate_curency.model.Country;
@@ -24,6 +24,8 @@ import course.labs.changerate_curency.model.CurrencyFeed;
 import course.labs.changerate_curency.repository.CurrencyApi;
 import course.labs.changerate_curency.repository.CurrencyRepository;
 import course.labs.changerate_curency.util.CountryService;
+import course.labs.changerate_curency.util.CurrencyFormat;
+import course.labs.changerate_curency.util.DateFormat;
 import course.labs.changerate_curency.util.HistoryService;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -31,7 +33,6 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
   CurrencyRepository currencyRepository = new CurrencyRepository();
-  CurrencyApi currencyApi;
   CurrencyFeed feed;
   AutoCompleteTextView acFromCurrencyCode;
   ImageView imgFrom;
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
   AutoCompleteTextView acToCurrencyCode;
   ImageView imgTo;
-  ArrayAdapter<Country> adapterTo;
+  CountryAdapter adapterTo;
   TextView txtTo;
 
   Button btnConvert;
@@ -70,10 +71,7 @@ public class MainActivity extends AppCompatActivity {
       public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         TextView txt = view.findViewById(R.id.txtCurrencyCode);
         acFromCurrencyCode.setText(txt.getText().toString());
-//        ImageView imageView = (ImageView) view.findViewById(R.id.imgCountry);
-        imgFrom.setImageBitmap(null);
         new DownloadImageTask(imgFrom).execute(adapterFrom.filteredItem.get(position).getFlagUrl());
-//        imgFrom.setImageDrawable(imageView.getDrawable());
       }
     });
 
@@ -84,8 +82,7 @@ public class MainActivity extends AppCompatActivity {
       public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         TextView txt = view.findViewById(R.id.txtCurrencyCode);
         acToCurrencyCode.setText(txt.getText().toString());
-        ImageView imageView = (ImageView) view.findViewById(R.id.imgCountry);
-        imgTo.setImageDrawable(imageView.getDrawable());
+        new DownloadImageTask(imgTo).execute(adapterTo.filteredItem.get(position).getFlagUrl());
       }
     });
 
@@ -132,7 +129,6 @@ public class MainActivity extends AppCompatActivity {
       @Override
       public void onResponse(Call<CurrencyFeed> call, Response<CurrencyFeed> response) {
         feed = response.body();
-        Log.d("tiktzuki", "onResponse: "+feed);
         for(CurrencyExchangeItem item: feed.getCurrencyExchangeItems()){
           String toCode;
           toCode = item.getTitle().substring(item.getTitle().lastIndexOf("(")+1, item.getTitle().lastIndexOf(")")).trim();
@@ -144,12 +140,12 @@ public class MainActivity extends AppCompatActivity {
             txtTo.setText( unit.multiply(currencyValue).toString() );
             // Set history
             Object[] historyItem = new Object[]{
-                edtFrom.getText().toString(),
+                new DateFormat().format(new Date()),
+                CurrencyFormat.format(edtFrom.getText().toString()),
                 acFromCurrencyCode.getText().toString(),
-                txtTo.getText().toString(),
+                CurrencyFormat.format(txtTo.getText().toString()),
                 acToCurrencyCode.getText().toString(),
             };
-            Log.d("tiktzuki", "onClick: "+historyItem[0]+"\t"+historyItem[2]);
             addAndWriteHistory(historyItem);
             loadHistory();
           }

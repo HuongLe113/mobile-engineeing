@@ -46,7 +46,7 @@ public class CountryService {
             countryObj.get("code").getAsString(),
             countryObj.get("currencyCode").getAsString(),
             countryObj.get("name").getAsString(),
-            "https://flagcdn.com/w160/"+countryObj.get("code").getAsString().toLowerCase()+".png"
+            "https://flagcdn.com/w40/"+countryObj.get("code").getAsString().toLowerCase()+".png"
         ));
       }
     } catch (IOException e) {

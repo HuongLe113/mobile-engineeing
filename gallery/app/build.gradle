@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "course.labs.gallery"
-        minSdkVersion 23
+        minSdkVersion 24
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -33,7 +33,15 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.3.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'com.bigkoo:svprogresshud:1.0.6'
+    implementation 'com.jakewharton:butterknife:7.0.1'
+    //Thư viện ảnh bo góc
+    implementation 'org.wysaid:gpuimage-plus:2.4.9'
+    //Thư viện dimension
+    implementation 'com.intuit.sdp:sdp-android:1.0.4'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
 }

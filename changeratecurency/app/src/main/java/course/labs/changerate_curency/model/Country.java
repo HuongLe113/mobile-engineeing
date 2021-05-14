@@ -6,10 +6,6 @@ public class Country {
   private String name;
   private String flagUrl;
 
-  public Country(){
-
-  }
-
   public Country(String code, String currencyCode, String name, String flagUrl) {
     this.code = code;
     this.currencyCode = currencyCode;
@@ -21,24 +17,12 @@ public class Country {
     return code;
   }
 
-  public void setCode(String code) {
-    this.code = code;
-  }
-
   public String getCurrencyCode() {
     return currencyCode;
   }
 
-  public void setCurrencyCode(String currencyCode) {
-    this.currencyCode = currencyCode;
-  }
-
   public String getFlagUrl() {
     return flagUrl;
-  }
-
-  public void setFlagUrl(String flagUrl) {
-    this.flagUrl = flagUrl;
   }
 
   public String getName() {

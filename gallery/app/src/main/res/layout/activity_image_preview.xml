@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="vertical">
+
+<!--  <RelativeLayout-->
+<!--    android:id="@+id/tb_camera"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="45dp"-->
+<!--    android:background="@color/background">-->
+
+
+<!--  </RelativeLayout>-->
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/cl_image"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:layout_alignBottom="@+id/rl_action"
+    android:background="@color/secondary">
+
+    <ImageView
+      android:id="@+id/iv_preview_image"
+      android:background="@color/black"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:scaleType="fitCenter"
+      tools:srcCompat="@tools:sample/backgrounds/scenic"
+      />
+
+    <ImageView
+      android:id="@+id/iv_back"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintLeft_toLeftOf="parent"
+      android:layout_margin="10dp"
+      app:srcCompat="?attr/homeAsUpIndicator" />
+
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+  <RelativeLayout
+    android:id="@+id/rl_action"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:padding="10dp"
+    android:background="@color/background">
+
+    <ImageView
+      android:id="@+id/btn_delete"
+      android:layout_width="24dp"
+      android:layout_height="24dp"
+      android:layout_alignParentRight="true"
+      app:srcCompat="@drawable/trash" />
+  </RelativeLayout>
+
+</RelativeLayout>

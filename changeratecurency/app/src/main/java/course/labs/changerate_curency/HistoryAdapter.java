@@ -1,7 +1,6 @@
 package course.labs.changerate_curency;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,14 +28,16 @@ public class HistoryAdapter extends ArrayAdapter {
     Object[] item = items.get(position);
     LayoutInflater inflater = LayoutInflater.from(this.getContext());
     View row = inflater.inflate(R.layout.history_item, null);
+    TextView date = row.findViewById(R.id.txtHistoryDate);
     TextView formValue = row.findViewById(R.id.txtHistoryFromValue);
     TextView form = row.findViewById(R.id.txtHistoryFrom);
     TextView toValue = row.findViewById(R.id.txtHistoryToValue);
     TextView to= row.findViewById(R.id.txtHistoryTo);
-    formValue.setText(item[0].toString());
-    form.setText(item[1].toString());
-    toValue.setText(item[2].toString());
-    to.setText(item[3].toString());
+    date.setText(item[0].toString());
+    formValue.setText(item[1].toString());
+    form.setText(item[2].toString());
+    toValue.setText(item[3].toString());
+    to.setText(item[4].toString());
     return row;
   }
 

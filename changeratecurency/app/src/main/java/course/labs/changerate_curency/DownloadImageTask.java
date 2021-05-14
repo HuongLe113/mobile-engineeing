@@ -14,7 +14,9 @@ class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
   ImageView imageView;
   DownloadImageTask(ImageView imageView){
     this.imageView = imageView;
+    imageView.setImageResource(R.drawable.loading);
   }
+
   protected Bitmap doInBackground(String... flagUrl) {
     Bitmap bitmap = null;
     int SDK_INT = android.os.Build.VERSION.SDK_INT;
