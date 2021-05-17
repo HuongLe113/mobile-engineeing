@@ -40,8 +40,8 @@ public class AlarmUtil {
     calendar.set(Calendar.MINUTE, 0);
 
     AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-    alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, calendar.getTimeInMillis() , AlarmManager.INTERVAL_HALF_DAY, pendingIntent);
-//    alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, 0 , 1000*60, pendingIntent);
+//    alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, calendar.getTimeInMillis() , AlarmManager.INTERVAL_HALF_DAY, pendingIntent);
+    alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, 0 , 1000*60, pendingIntent);
   }
 
 }

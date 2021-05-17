@@ -4,14 +4,15 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
@@ -26,10 +27,12 @@ import java.util.ArrayList;
 public class Files extends AppCompatActivity {
     ListView listView;
     String[] items;
-    String path="";
+    String path;
     TextView textView;
     ArrayList<File> myFolders;
     int position;
+    Button button;
+
     @SuppressLint("NewApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +42,6 @@ public class Files extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-
-
 
         Intent intent = getIntent();
         Bundle b = intent.getExtras();
@@ -53,7 +54,6 @@ public class Files extends AppCompatActivity {
             path= myFolders.get(position).getPath();
 
         }
-
 
         Dexter.withActivity(this)
                 .withPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -107,9 +107,9 @@ public class Files extends AppCompatActivity {
         }
         ArrayAdapter<String> adp = new
                 ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,items);
-        //listView.setAdapter(adp);
+//        listView.setAdapter(adp);
         listView.setAdapter(new ArrayAdapter<String>(this,
-                R.layout.my_custom_layout,R.id.textView2,items));
+                R.layout.my_custom_layout_music,R.id.textView2,items));
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -117,8 +117,14 @@ public class Files extends AppCompatActivity {
                     position, long l) {
 
                 String songName = listView.getItemAtPosition(position).toString();
-                startActivity(new Intent(getApplicationContext(),PlayerActivity.class)
-                        .putExtra("pos",position).putExtra("songs",mySongs).putExtra("songname",songName));
+
+                try {
+                    startActivity(new Intent(getApplicationContext(),PlayerActivity.class)
+                            .putExtra("pos",position).putExtra("songs",mySongs).putExtra("songname",songName));
+
+                }catch (Exception exception){
+
+                }
             }
         });
     }

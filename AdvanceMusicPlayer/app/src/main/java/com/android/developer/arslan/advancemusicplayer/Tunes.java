@@ -71,7 +71,7 @@ public class Tunes extends AppCompatActivity {
         ArrayList<File> at = new ArrayList<File>();
         File[] files = root.listFiles();
         for (File singleFile: files) {
-            if(singleFile.isDirectory() && !singleFile.isHidden()){//
+            if(singleFile.isDirectory() && !singleFile.isHidden()){
                 at.add(singleFile);
             }
         }
@@ -89,7 +89,7 @@ public class Tunes extends AppCompatActivity {
         }
         ArrayAdapter<String> adp1 = new
                 ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,folders);
-        //listView.setAdapter(adp1);
+//        listView.setAdapter(adp1);
 
         listView.setAdapter(new ArrayAdapter<String>(this,
                 R.layout.my_custom_layout,R.id.textView2,folders));

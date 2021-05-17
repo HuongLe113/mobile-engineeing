@@ -3,6 +3,7 @@ package com.android.developer.arslan.advancemusicplayer;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.gesture.GestureLibraries;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.media.MediaMetadataRetriever;
@@ -20,7 +21,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.RotateAnimation;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,6 +35,7 @@ import org.w3c.dom.Text;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.jar.Manifest;
+
 public class PlayerActivity extends AppCompatActivity{
 
     static MediaPlayer mp;//assigning memory loc once or else multiple songs will play at once
@@ -41,6 +47,8 @@ public class PlayerActivity extends AppCompatActivity{
     TextView songNameText;
     TextView songDuration;
     TextView songCurrentPostion;
+    Animation animation;
+    ImageView imageView;
 
     String sname;
     @SuppressLint("NewApi")
@@ -52,27 +60,33 @@ public class PlayerActivity extends AppCompatActivity{
         songNameText = (TextView) findViewById(R.id.txtSongLabel);
         songDuration= findViewById(R.id.songDuration);
         songCurrentPostion= findViewById(R.id.songCurrentPosition);
+        animation= AnimationUtils.loadAnimation(this,R.anim.rotate);
+        imageView= findViewById(R.id.album_art);
+        imageView.setVisibility(View.VISIBLE);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setTitle("Now Playing");
+        getSupportActionBar().hide();
+
+
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+//        getSupportActionBar().setDisplayShowHomeEnabled(false);
+//        getSupportActionBar().setTitle("Now Playing");
 
         pause = (Button)findViewById(R.id.pause);
         previous = (Button)findViewById(R.id.previous);
         next = (Button)findViewById(R.id.next);
         sb=(SeekBar)findViewById(R.id.seekBar);
-        sb.getProgressDrawable().setColorFilter(getResources().getColor(R.color.colorPrimary), PorterDuff.Mode.MULTIPLY);
-        sb.getThumb().setColorFilter(getResources().getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
-//
-        if(mp != null){
-            mp.stop();
-            mp.release();
-        }
+        sb.getProgressDrawable().setColorFilter(getResources().getColor(R.color.colorGrey), PorterDuff.Mode.MULTIPLY);
+        sb.getThumb().setColorFilter(getResources().getColor(R.color.colorGrey), PorterDuff.Mode.SRC_IN);
+
+
         Intent i = getIntent();
         Bundle b = i.getExtras();
-        mySongs = (ArrayList) b.getParcelableArrayList("songs");
-        position = b.getInt("pos",0);
-        initPlayer(position);
+        if(b!=null){
+            mySongs = (ArrayList) b.getParcelableArrayList("songs");
+            position = b.getInt("pos",0);
+            imageView.startAnimation(animation);
+            initPlayer(position);
+        }
 
         pause.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,7 +118,7 @@ public class PlayerActivity extends AppCompatActivity{
             }
         });
     }
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+    //@RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     private void initPlayer(final int position){
         if(mp!=null && mp.isPlaying()){
             mp.reset();
@@ -146,13 +160,17 @@ public class PlayerActivity extends AppCompatActivity{
          sb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
               @Override
               public void onProgressChanged(SeekBar seekBar, int i,boolean b) {
+                  if (b) {
+                      mp.seekTo(i);
+                      sb.setProgress(i);
+                  }
               }
               @Override
               public void onStartTrackingTouch(SeekBar seekBar) {
               }
               @Override
               public void onStopTrackingTouch(SeekBar seekBar) {
-                  mp.seekTo(seekBar.getProgress());
+//                  mp.seekTo(seekBar.getProgress());
               }
          });
 
@@ -196,6 +214,7 @@ public class PlayerActivity extends AppCompatActivity{
     private void play() {
         if (mp != null && !mp.isPlaying()) {
             mp.start();
+            imageView.startAnimation(animation);
             pause.setBackgroundResource(R.drawable.pause);
         } else {
             pause();
@@ -206,10 +225,10 @@ public class PlayerActivity extends AppCompatActivity{
     private void pause() {
         if (mp.isPlaying()) {
             mp.pause();
+            imageView.clearAnimation();
             pause.setBackgroundResource(R.drawable.ic_play_arrow_black_24dp);
 
         }
-
     }
 
     public String createTimeLabel(int duration) {

@@ -34,7 +34,7 @@
             android:ellipsize="marquee"
             android:scrollHorizontally="true"
             android:textColor="@color/colorPrimary"
-            />
+            android:gravity="center_horizontal" />
 
     </LinearLayout>
 

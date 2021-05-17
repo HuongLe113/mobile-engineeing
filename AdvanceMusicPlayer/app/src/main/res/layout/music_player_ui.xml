@@ -5,37 +5,37 @@
     android:weightSum="10"
     android:layout_height="match_parent"
     android:background="@drawable/player_background">
-
     <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="0dp"
-      android:layout_weight="7"
-      android:gravity="center"
-      android:orientation="vertical"
-      android:padding="10dp">
-
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:padding="10dp"
+        android:orientation="vertical"
+        android:layout_weight="7">
         <ImageView
-          android:id="@+id/album_art"
-          android:layout_width="250dp"
-          android:layout_height="250dp"
-          android:src="@drawable/cover_art" />
-
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:src="@drawable/purp_cover"
+            android:id="@+id/album_art"
+            />
         <TextView
-          android:id="@+id/txtSongLabel"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="20dp"
-          android:ellipsize="marquee"
-          android:gravity="center_horizontal"
-          android:marqueeRepeatLimit="marquee_forever"
-          android:scrollHorizontally="true"
-          android:singleLine="true"
-          android:text="song name"
-          android:textAlignment="center"
-          android:textColor="#ffffff"
-          android:textSize="30dp" />
+            android:id="@+id/txtSongLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:text="song name"
+            android:textAlignment="center"
+            android:textColor="#ffffff"
+            android:textSize="25dp"
+            android:gravity="center_horizontal"
+            />
 
     </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
